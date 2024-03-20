@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episodios Vistos</title>
+<style>
+  .episodio {
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="episodio">
+  <span>Episodio 1: Título del episodio</span>
+  <span id="estado1" onclick="cambiarEstado('estado1')">No visto</span>
+</div>
+
+<div class="episodio">
+  <span>Episodio 2: Título del episodio</span>
+  <span id="estado2" onclick="cambiarEstado('estado2')">No visto</span>
+</div>
+
+<!-- Agrega más episodios aquí según sea necesario -->
+
+<script>
+  // Función para cambiar el estado del episodio
+  function cambiarEstado(idEstado) {
+    var estado = document.getElementById(idEstado);
+    if (estado.textContent === 'No visto') {
+      estado.textContent = 'Visto';
+    } else {
+      estado.textContent = 'No visto';
+    }
+    // Guardar el estado del episodio en el almacenamiento local
+    localStorage.setItem(idEstado, estado.textContent);
+  }
+
+  // Restaurar el estado de los episodios al cargar la página
+  window.onload = function() {
+    var estados = document.querySelectorAll('span[id^="estado"]');
+    estados.forEach(function(estado) {
+      var estadoGuardado = localStorage.getItem(estado.id);
+      if (estadoGuardado) {
+        estado.textContent = estadoGuardado;
+      }
+    });
+  };
+</script>
+
+</body>
+</html>
